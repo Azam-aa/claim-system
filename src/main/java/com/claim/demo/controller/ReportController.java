@@ -32,7 +32,6 @@ public class ReportController {
     public ResponseEntity<Resource> downloadReport(@RequestParam(required = false) String status) {
         List<ClaimResponse> claims = claimService.getAllClaims();
 
-        // Simple filtering here for demo. ideally move to service/repo
         if (status != null && !status.isEmpty() && !"ALL".equalsIgnoreCase(status)) {
             claims = claims.stream()
                     .filter(c -> c.getStatus().equalsIgnoreCase(status))

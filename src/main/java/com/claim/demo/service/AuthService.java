@@ -31,8 +31,8 @@ public class AuthService {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole("USER"); // Default role
-        user.setVerified(true); // Auto-verify since we removed OTP
+        user.setRole("USER");
+        user.setVerified(true);
         user.setVerificationCode(null);
         user.setOtpExpiry(null);
 

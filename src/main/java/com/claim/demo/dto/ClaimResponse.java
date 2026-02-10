@@ -11,7 +11,6 @@ public class ClaimResponse {
     private String status;
     private LocalDateTime createdAt;
 
-    // New Fields
     private String rejectionReason;
     private String approvedBy;
     private String rejectedBy;

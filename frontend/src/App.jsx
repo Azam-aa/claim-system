@@ -19,11 +19,9 @@ function App() {
         <AuthProvider>
           <ToastProvider>
             <Routes>
-              {/* Public Routes */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
 
-              {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>
                 <Route element={<DashboardLayout />}>
                   <Route path="/dashboard" element={<Dashboard />} />
@@ -33,7 +31,6 @@ function App() {
                 </Route>
               </Route>
 
-              {/* Redirects */}
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>

@@ -82,7 +82,6 @@ const Dashboard = () => {
                         <label className="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Email</label>
                         <div className="text-base font-medium text-slate-900 dark:text-white">{user?.email || 'N/A'}</div>
                     </div>
-                    {/* Add more fields as needed based on User entity */}
                 </div>
             </div>
         </div>

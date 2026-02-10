@@ -21,7 +21,6 @@ const Login = () => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Basic validation
         if (!formData.username || !formData.password) {
             setError('Please fill in all fields');
             setIsSubmitting(false);
@@ -105,7 +104,6 @@ const Login = () => {
                     </div>
                 </div>
 
-                {/* Decorative bottom bar */}
                 <div className="h-1.5 w-full bg-gradient-to-r from-primary-600 to-primary-300"></div>
             </div>
         </div>

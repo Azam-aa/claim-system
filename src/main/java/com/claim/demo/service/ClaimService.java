@@ -58,22 +58,20 @@ public class ClaimService {
         return mapToResponse(claimRepository.save(claim));
     }
 
-    // ✅ THIS METHOD WAS MISSING (CAUSE OF ERROR)
     public List<ClaimResponse> getMyClaims(String username) {
 
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         return user.getClaims().stream()
-                .filter(c -> !c.isDeleted()) // Filter deleted
+                .filter(c -> !c.isDeleted())
                 .map(this::mapToResponse)
                 .collect(java.util.stream.Collectors.toList());
     }
 
-    // Admin: Get all claims (non-deleted)
     public List<ClaimResponse> getAllClaims() {
         return claimRepository.findAll().stream()
-                .filter(c -> !c.isDeleted()) // Filter deleted
+                .filter(c -> !c.isDeleted())
                 .map(this::mapToResponse)
                 .collect(java.util.stream.Collectors.toList());
     }
@@ -87,7 +85,6 @@ public class ClaimService {
         claim.setApprovedBy(adminUsername);
         claim.setActionDate(LocalDateTime.now());
 
-        // Clear rejection info if it was previously rejected
         claim.setRejectionReason(null);
         claim.setRejectedBy(null);
 
@@ -106,7 +103,6 @@ public class ClaimService {
         claim.setRejectedBy(adminUsername);
         claim.setActionDate(LocalDateTime.now());
 
-        // Clear approval info
         claim.setApprovedBy(null);
 
         Claim saved = claimRepository.save(claim);

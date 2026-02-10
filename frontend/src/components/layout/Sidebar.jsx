@@ -14,7 +14,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     ];
 
     if (useAuth().user?.role === 'ADMIN') {
-        links.push({ name: 'Admin Panel', path: '/admin', icon: Home }); // Using Home icon as placeholder or maybe distinct one
+        links.push({ name: 'Admin Panel', path: '/admin', icon: Home });
     }
 
     return (

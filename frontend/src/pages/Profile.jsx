@@ -6,7 +6,7 @@ import Input from '../components/common/Input';
 import { User, Mail, Phone, MapPin, Save, Camera } from 'lucide-react';
 
 const Profile = () => {
-    const { user, login } = useAuth(); // Re-login to update context if needed, or we fetch fresh data
+    const { user, login } = useAuth();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -51,12 +51,8 @@ const Profile = () => {
             });
             const uploadedUrl = res.data.url;
 
-            // Update state immediately
             setFormData(prev => ({ ...prev, avatarUrl: uploadedUrl }));
 
-            // Optionally auto-save profile here or wait for user to click "Save Changes"
-            // For better UX, let's just update the preview so user sees it, then they click save
-            // addToast("Image uploaded successfully!", 'success'); // Assuming addToast is defined elsewhere
             setSuccess("Image uploaded successfully!");
         } catch (err) {
             console.error("Upload failed", err);
@@ -66,7 +62,6 @@ const Profile = () => {
         }
     };
 
-    // Helper to trigger file input
     const triggerFileInput = () => {
         document.getElementById('fileInput').click();
     };
@@ -80,10 +75,8 @@ const Profile = () => {
                 address: formData.address,
                 avatarUrl: formData.avatarUrl
             });
-            // Update local storage/context if needed, for now just show success
             setSuccess('Profile updated successfully!');
-            // Ideally update auth context here to reflect new avatar immediately in Navbar
-            window.location.reload(); // Simple reload to refresh context for now
+            window.location.reload();
         } catch (error) {
             console.error("Failed to update profile", error);
         } finally {
@@ -99,7 +92,6 @@ const Profile = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Profile Card */}
                 <div className="col-span-1">
                     <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 flex flex-col items-center text-center">
                         <div className="relative mb-4">
@@ -130,7 +122,6 @@ const Profile = () => {
                     </div>
                 </div>
 
-                {/* Edit Form */}
                 <div className="col-span-1 md:col-span-2">
                     <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
                         <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6 border-b border-slate-200 dark:border-slate-800 pb-4">

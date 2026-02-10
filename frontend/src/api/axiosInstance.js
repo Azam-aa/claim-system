@@ -9,7 +9,6 @@ const axiosInstance = axios.create({
     },
 });
 
-// Request Interceptor: Attach Token
 axiosInstance.interceptors.request.use(
     (config) => {
         const token = getToken();
@@ -21,15 +20,10 @@ axiosInstance.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-// Response Interceptor: Handle 401/403 (Logout)
 axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-            // Don't auto-redirect here to avoid circular logic, let the AuthContext or Components handle it
-            // But we can clear the token if it's invalid
-            // removeToken();
-            // window.location.href = '/login'; // Optional: Force redirect
         }
         return Promise.reject(error);
     }

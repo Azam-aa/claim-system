@@ -13,7 +13,6 @@ const ProtectedRoute = () => {
         );
     }
 
-    // Double check token because isAuthenticated relies on state which might be lagging, but loading handles that.
     return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 

@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // Check if user is logged in on mount
     useEffect(() => {
         const initAuth = async () => {
             const token = getToken();
@@ -33,7 +32,6 @@ export const AuthProvider = ({ children }) => {
             const { token } = response.data;
             setToken(token);
 
-            // Fetch user profile immediately
             const profileResponse = await axiosInstance.get('/users/me');
             setUser(profileResponse.data);
             return { success: true };

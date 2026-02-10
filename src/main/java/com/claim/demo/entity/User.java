@@ -28,7 +28,6 @@ public class User {
     private String address;
     private String avatarUrl;
 
-    // Security Fields
     private boolean isVerified = false;
     private String verificationCode;
     private java.time.LocalDateTime otpExpiry;

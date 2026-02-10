@@ -19,7 +19,6 @@ const DashboardLayout = () => {
                 </div>
             </main>
 
-            {/* Mobile Overlay */}
             {isSidebarOpen && (
                 <div
                     className="fixed inset-0 bg-black/50 z-20 md:hidden glass"

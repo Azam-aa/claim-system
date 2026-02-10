@@ -8,13 +8,10 @@ import Modal from '../components/common/Modal';
 
 const AdminDashboard = () => {
     const { addToast } = useToast();
-    const [activeTab, setActiveTab] = useState('claims'); // 'claims', 'users', 'reports'
+    const [activeTab, setActiveTab] = useState('claims');
     const [claims, setClaims] = useState([]);
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    // Modals state
-    const [rejectModal, setRejectModal] = useState({ show: false, claimId: null });
     const [blockModal, setBlockModal] = useState({ show: false, userId: null });
     const [confirmModal, setConfirmModal] = useState({ show: false, title: '', message: '', onConfirm: null });
     const [reason, setReason] = useState('');
@@ -200,7 +197,6 @@ const AdminDashboard = () => {
                 <div className="flex justify-center py-20"><Loader /></div>
             ) : (
                 <>
-                    {/* CLAIMS TAB */}
                     {activeTab === 'claims' && (
                         <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                             <div className="overflow-x-auto">
@@ -248,7 +244,6 @@ const AdminDashboard = () => {
                         </div>
                     )}
 
-                    {/* USERS TAB */}
                     {activeTab === 'users' && (
                         <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
                             <div className="overflow-x-auto">
@@ -310,7 +305,6 @@ const AdminDashboard = () => {
                         </div>
                     )}
 
-                    {/* REPORTS TAB */}
                     {activeTab === 'reports' && (
                         <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-8">
                             <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Generated Reports</h2>
@@ -344,7 +338,6 @@ const AdminDashboard = () => {
                 </>
             )}
 
-            {/* Modals */}
             <Modal
                 isOpen={rejectModal.show}
                 onClose={() => setRejectModal({ show: false, claimId: null })}

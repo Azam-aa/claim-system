@@ -22,13 +22,11 @@ public class FileUploadController {
     @PostMapping
     public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            // Create upload directory if not exists
             Path uploadPath = Paths.get(UPLOAD_DIR);
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
 
-            // Generate unique filename
             String originalFilename = file.getOriginalFilename();
             String extension = "";
             if (originalFilename != null && originalFilename.contains(".")) {
@@ -36,13 +34,10 @@ public class FileUploadController {
             }
             String fileName = UUID.randomUUID().toString() + extension;
 
-            // Save file
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(file.getInputStream(), filePath);
 
-            // Return URL
             Map<String, String> response = new HashMap<>();
-            // Assuming localhost:8080 for simplicity, in prod this should be dynamic
             response.put("url", "http://localhost:8080/uploads/" + fileName);
             return ResponseEntity.ok(response);
 

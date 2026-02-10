@@ -17,7 +17,6 @@ public class ExcelService {
         try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             Sheet sheet = workbook.createSheet("Claims");
 
-            // Header
             String[] headers = { "ID", "Claim Number", "Amount", "Status", "Date", "Rejection Reason", "Approved By",
                     "Rejected By" };
             Row headerRow = sheet.createRow(0);
@@ -31,7 +30,6 @@ public class ExcelService {
                 cell.setCellStyle(style);
             }
 
-            // Data
             int rowIdx = 1;
             for (ClaimResponse claim : claims) {
                 Row row = sheet.createRow(rowIdx++);

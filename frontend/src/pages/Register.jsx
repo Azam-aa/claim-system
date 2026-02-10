@@ -36,8 +36,6 @@ const Register = () => {
         const { success, message } = await register(formData.username, formData.email, formData.password);
 
         if (success) {
-            // Auto-redirect to login with a success message state theoretically,
-            // but for now just go to login
             navigate('/login');
         } else {
             setError(message);

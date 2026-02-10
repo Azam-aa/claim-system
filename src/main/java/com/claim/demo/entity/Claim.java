@@ -26,7 +26,6 @@ public class Claim {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    // New Fields for Enhanced Processing
     private String rejectionReason;
     private boolean isDeleted = false;
 
