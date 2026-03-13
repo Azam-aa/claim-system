@@ -17,17 +17,25 @@ const Input = forwardRef(({
                     {label}
                 </label>
             )}
-            <input
-                ref={ref}
-                id={id}
-                type={type}
-                className={twMerge(
-                    "w-full px-3 py-2.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 text-slate-900 dark:text-white disabled:bg-slate-100 dark:disabled:bg-slate-900 disabled:cursor-not-allowed",
-                    error && "border-red-500 focus:ring-red-500",
-                    className
+            <div className="relative">
+                <input
+                    ref={ref}
+                    id={id}
+                    type={type}
+                    className={twMerge(
+                        "w-full px-3 py-2.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 text-slate-900 dark:text-white disabled:bg-slate-100 dark:disabled:bg-slate-900 disabled:cursor-not-allowed",
+                        error && "border-red-500 focus:ring-red-500",
+                        props.suffix && "pr-10",
+                        className
+                    )}
+                    {...props}
+                />
+                {props.suffix && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                        {props.suffix}
+                    </div>
                 )}
-                {...props}
-            />
+            </div>
             {error && (
                 <p className="mt-1 text-sm text-red-600 dark:text-red-400 animate-[fadeIn_0.2s_ease-in-out]">
                     {error}

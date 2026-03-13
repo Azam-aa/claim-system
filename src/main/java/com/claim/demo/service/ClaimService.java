@@ -7,6 +7,8 @@ import com.claim.demo.entity.User;
 import com.claim.demo.exception.ClaimNotFoundException;
 import com.claim.demo.repository.ClaimRepository;
 import com.claim.demo.repository.UserRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,14 +20,18 @@ public class ClaimService {
 
     private final ClaimRepository claimRepository;
     private final UserRepository userRepository;
+    private final KafkaProducerService kafkaProducerService;
 
     public ClaimService(ClaimRepository claimRepository,
-            UserRepository userRepository) {
+            UserRepository userRepository,
+            KafkaProducerService kafkaProducerService) {
         this.claimRepository = claimRepository;
         this.userRepository = userRepository;
+        this.kafkaProducerService = kafkaProducerService;
     }
 
     @org.springframework.transaction.annotation.Transactional
+    @CacheEvict(value = "claims", allEntries = true)
     public ClaimResponse createClaim(ClaimRequest request, String username) {
 
         User user = userRepository.findByUsername(username)
@@ -39,9 +45,12 @@ public class ClaimService {
         claim.setCreatedAt(LocalDateTime.now());
         claim.setUser(user);
 
-        return mapToResponse(claimRepository.save(claim));
+        Claim savedClaim = claimRepository.save(claim);
+        kafkaProducerService.sendMessage("claim-updates", "Claim Created: " + savedClaim.getClaimNumber());
+        return mapToResponse(savedClaim);
     }
 
+    @Cacheable(value = "claim", key = "#id")
     public ClaimResponse getClaim(Long id) {
         return mapToResponse(
                 claimRepository.findById(id)
@@ -49,13 +58,16 @@ public class ClaimService {
     }
 
     @org.springframework.transaction.annotation.Transactional
+    @CacheEvict(value = "claim", key = "#id")
     public ClaimResponse updateStatus(Long id, String status) {
 
         Claim claim = claimRepository.findById(id)
                 .orElseThrow(() -> new ClaimNotFoundException("Claim not found"));
 
         claim.setStatus(status);
-        return mapToResponse(claimRepository.save(claim));
+        Claim savedClaim = claimRepository.save(claim);
+        kafkaProducerService.sendMessage("claim-updates", "Claim Updated: " + id + " to " + status);
+        return mapToResponse(savedClaim);
     }
 
     public List<ClaimResponse> getMyClaims(String username) {

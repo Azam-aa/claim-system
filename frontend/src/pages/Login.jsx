@@ -4,11 +4,14 @@ import useAuth from '../hooks/useAuth';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
 import ThemeToggle from '../components/common/ThemeToggle';
+import { Eye, EyeOff } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
 
@@ -42,6 +45,26 @@ const Login = () => {
         }
     };
 
+    const handleForgotPassword = (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Contact Admin',
+            html: `
+                <div class="text-left">
+                    <p class="mb-4">Please contact the administrator to reset your password:</p>
+                    <p class="mb-2"><strong>Email:</strong> <a href="mailto:azamp442@gmail.com" class="text-primary-600 hover:underline">azamp442@gmail.com</a></p>
+                    <p><strong>GitHub:</strong> <a href="https://github.com/Azam-aa" target="_blank" class="text-primary-600 hover:underline">Azam-aa</a></p>
+                </div>
+            `,
+            icon: 'info',
+            confirmButtonText: 'Close',
+            confirmButtonColor: '#3b82f6',
+            customClass: {
+                popup: 'dark:bg-slate-800 dark:text-white'
+            }
+        });
+    };
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 transition-colors duration-300 p-4">
             <div className="absolute top-4 right-4">
@@ -71,13 +94,32 @@ const Login = () => {
 
                         <Input
                             id="password"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             label="Password"
                             placeholder="••••••••"
                             value={formData.password}
                             onChange={handleChange}
                             disabled={isSubmitting}
+                            suffix={
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors focus:outline-none"
+                                >
+                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                </button>
+                            }
                         />
+
+                        <div className="flex justify-end">
+                            <button
+                                type="button"
+                                onClick={handleForgotPassword}
+                                className="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400"
+                            >
+                                Forgot password?
+                            </button>
+                        </div>
 
                         {error && (
                             <div className="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm text-center">

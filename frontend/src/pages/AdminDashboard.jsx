@@ -14,6 +14,7 @@ const AdminDashboard = () => {
     const [loading, setLoading] = useState(true);
     const [blockModal, setBlockModal] = useState({ show: false, userId: null });
     const [confirmModal, setConfirmModal] = useState({ show: false, title: '', message: '', onConfirm: null });
+    const [rejectModal, setRejectModal] = useState({ show: false, claimId: null });
     const [reason, setReason] = useState('');
 
     const fetchData = async () => {
