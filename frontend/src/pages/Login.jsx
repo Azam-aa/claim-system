@@ -82,6 +82,27 @@ const Login = () => {
                         </p>
                     </div>
 
+                    {/* Test Credentials Panel for HR */}
+                    <div className="mb-6 p-4 bg-blue-50 dark:bg-slate-800 rounded-lg border border-blue-100 dark:border-slate-700">
+                        <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-300 mb-2 whitespace-nowrap">Testing Credentials (Click to fill):</h3>
+                        <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+                            <button
+                                type="button"
+                                onClick={() => setFormData({ username: 'admin', password: 'password123' })}
+                                className="text-xs px-3 py-1.5 bg-white dark:bg-slate-900 border border-blue-200 dark:border-slate-600 rounded text-blue-700 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-slate-700 transition"
+                            >
+                                Admin: admin
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setFormData({ username: 'agent1', password: 'password123' })}
+                                className="text-xs px-3 py-1.5 bg-white dark:bg-slate-900 border border-blue-200 dark:border-slate-600 rounded text-blue-700 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-slate-700 transition"
+                            >
+                                Agent: agent1
+                            </button>
+                        </div>
+                    </div>
+
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <Input
                             id="username"
